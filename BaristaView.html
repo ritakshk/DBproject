@@ -1,11 +1,113 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <head>
+        <style>
+            /*<!--Styling Specifications-->*/
+            .webpage{
+                grid-template-rows: 1fr 1fr;
+                font: Georgia;
+            }
+            .row1{
+                grid-template-columns: 45% 25% 25% 25%;
 
-        <h1>My First Heading</h1>
+            }
+            .row2{
+                grid-template-columns: 25% 25% 25% 25%;
+                /*10% 100px 50% */
+            }
+            .customer_order {
+                text-align: center;
+                background-color:#ece7e0;
+                width: 25%;
+                border-radius: 8px;
+                display: inline-block;
+                margin: 100px;
+                
+                position: relative;
+                /*margin: 100px;position: relative;*/
+            }
+            .customer_input {
+                /*position: absolute; z-index:5;*/
+                text-align: center;
+                background-color:#ece7e0;
+                width: 25%;
+                
+                border-radius: 8px;
+                display: inline-block; 
+                justify-self: right;
+                /*margin: 100px;margin: 10% auto;
+                display: block;
+                border: 0px solid red;
+                border-radius: 8px;
+                padding: 5px;
+                grid; /*block; vertical-align: baseline;*/
+                
+                
+
+            }
+            .drink_information{
+                text-align: center;
+                background-color:#ece7e0;
+                width: 25%;
+                z-index:5;
+                margin: 10% auto;
+                display: inline-block;
+                border-radius: 8px;
+            }
+            .new_entry_button{
+                text-align: center;
+                background-color:#ece7e0;
+                width: 25%;
+                z-index:5;
+                margin: 10% auto;
+                border-radius: 8px;
+                justify-self: right;
+                display: inline-block;
+            }
+            .order_total{
+                background-color: #d1c1aa;
+                display: block;
+                justify-self: right;
+                border-radius: 8px;
+                width: 20%;
+                text-align: start;
+            }
+        </style>
+    </head>
+
+    <!--Webpage Elements-->
+    <body style="background-color:#dfd8cf;">
+
+        <!--Customer Name div, previously section  style="justify-self: auto;"-->
+        <div class = "webpage">
+            <div class = "row1">
+            <div class="customer_input" >
+                <h2 style="color: #946f63;">Customer Name</h2>
+           </div>
+            <div class = "customer_order"> <!--Customer phone div-->
+                <h2 style="color: #946f63;">Customer Order</h2>
+            </div>
+        </div>
+
+        <div class="row2">
+            <!--Drink information div-->
+            <div class="drink_information">
+                <p style="color: #946f63;">Drink ID + Name:</p>
+                <p style="color: #946f63;">Drink Price:</p>
+            </div>
+
+            <!--Add new entry div-->
+            <div class = "new_entry_button">
+                <h2 style="color: #946f63; font-size: 50px;">+</h2>
+            </div>
+        </div>
+        </div>
         
-        <p>My first paragraph.</p>
-        
-        </body>
+        <!--Order total cost div-->
+        <div class = "order_total">
+            <h2 style="background-color: #946f63; color:#ffffff">Order Total Cost</h2>
+        </div>
+   
+    </body>
 
 </html>
