@@ -4,38 +4,52 @@
         <style>
             /*<!--Styling Specifications-->*/
             .webpage{
-                grid-template-rows: 1fr 1fr;
+                
+                grid-template-columns: 1fr 1fr 1fr 1fr;
                 font: Georgia;
+                gap: 10px;
+                padding: 10px;
             }
+            /*
             .row1{
                 grid-template-columns: 45% 25% 25% 25%;
 
             }
             .row2{
                 grid-template-columns: 25% 25% 25% 25%;
-                /*10% 100px 50% */
-            }
+                /*10% 100px 50% *
+            }*/
             .customer_order {
                 text-align: center;
                 background-color:#ece7e0;
-                width: 25%;
                 border-radius: 8px;
                 display: inline-block;
-                margin: 100px;
-                
-                position: relative;
-                /*margin: 100px;position: relative;*/
+                width: 25%;
+                margin: 10%;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+                /*grid-column-start: 3; grid-column-end: 4;width: 25%; margin: 100px;position: relative;*/
             }
             .customer_input {
                 /*position: absolute; z-index:5;*/
                 text-align: center;
                 background-color:#ece7e0;
-                width: 25%;
-                
+                display:inline-block;
                 border-radius: 8px;
-                display: inline-block; 
-                justify-self: right;
-                /*margin: 100px;margin: 10% auto;
+                width: 25%;
+                margin: 10%;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+                /*
+                grid-column-start: 2;
+                grid-row-start: 2;grid-column-end: 3;
+                margin: 100px;margin: 10% auto;
                 display: block;
                 border: 0px solid red;
                 border-radius: 8px;
@@ -49,20 +63,43 @@
                 text-align: center;
                 background-color:#ece7e0;
                 width: 25%;
-                z-index:5;
-                margin: 10% auto;
-                display: inline-block;
+                margin: 10%;
+                /*display:inline-block;*/
+                display: grid;
+                grid-row-start: 3;
+                grid-row-end: 3;
                 border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+
+                /*
+                display: grid;
+                grid-row-start: 3;
+                grid-row-end: 3;
+                grid-column-start: 2;
+                grid-column-end: 2;
+                */
             }
             .new_entry_button{
                 text-align: center;
                 background-color:#ece7e0;
                 width: 25%;
-                z-index:5;
-                margin: 10% auto;
+                margin: 10%;
                 border-radius: 8px;
                 justify-self: right;
-                display: inline-block;
+                display:inline-block;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+                /*display: grid;
+                grid-row-start: 3;
+                grid-row-end: 3;
+                grid-column-start: 3;
+                grid-column-end: 3;*/
             }
             .order_total{
                 background-color: #d1c1aa;
@@ -71,6 +108,11 @@
                 border-radius: 8px;
                 width: 20%;
                 text-align: start;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
             }
         </style>
     </head>
@@ -80,20 +122,20 @@
 
         <!--Customer Name div, previously section  style="justify-self: auto;"-->
         <div class = "webpage">
-            <div class = "row1">
+           
             <div class="customer_input" >
                 <h2 style="color: #946f63;">Customer Name</h2>
            </div>
             <div class = "customer_order"> <!--Customer phone div-->
                 <h2 style="color: #946f63;">Customer Order</h2>
             </div>
-        </div>
+        
 
-        <div class="row2">
+        
             <!--Drink information div-->
             <div class="drink_information">
-                <p style="color: #946f63;">Drink ID + Name:</p>
-                <p style="color: #946f63;">Drink Price:</p>
+                <h2 style="color: #946f63;">Drink ID + Name:</h2>
+                <h2 style="color: #946f63;">Drink Price:</h2>
             </div>
 
             <!--Add new entry div-->
@@ -101,11 +143,11 @@
                 <h2 style="color: #946f63; font-size: 50px;">+</h2>
             </div>
         </div>
-        </div>
+        
         
         <!--Order total cost div-->
         <div class = "order_total">
-            <h2 style="background-color: #946f63; color:#ffffff">Order Total Cost</h2>
+            <h2 style="color:#ffffff">Order Total Cost:</h2>
         </div>
    
     </body>
