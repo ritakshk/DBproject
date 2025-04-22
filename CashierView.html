@@ -1,11 +1,139 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <head>
+        <style>
+            /*<!--Styling Specifications-->*/
+            .webpage{
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                font: Georgia;
+                gap: 10px;
+                padding: 10px;
+            }
+            .customer_phone {
+                text-align: center;
+                background-color:#ece7e0;
+                border-radius: 8px;
+                display: inline-block;
+                width: 25%;
+                margin-top: 5%;
+                margin-left: 10%;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+            }
+            .customer_name {
+                text-align: center;
+                background-color:#ece7e0;
+                display:inline-block;
+                border-radius: 8px;
+                width: 25%;
+                margin-top: 5%;
+                margin-left: 15%;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+            }
+            .drink_information{
+                text-align: center;
+                background-color:#ece7e0;
+                width: 25%;
+                margin-top: 5%;
+                margin-left: 15%;
+                margin-bottom: 5%;
+                display:inline-block;
+                /*display: grid;*/
+                grid-row-start: 3;
+                grid-row-end: 3;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 60px;
+                padding-left: 20px;
+            }
+            .new_entry_button{
+                text-align: center;
+                background-color:#ece7e0;
+                width: 25%;
+                margin-top: 10%;
+                margin-left: 10%;
+                border-radius: 8px;
+                justify-self: right;
+                display:inline-block;
+                border-radius: 8px;
+                padding-top: 20px;
+                padding-right: 50px;
+                padding-bottom: 30px;
+                padding-left: 20px;
+            }
+            .order_total{
+                background-color: #d1c1aa;
+                display: block;
+                justify-self: right;
+                border-radius: 8px;
+                width: 20%;
+                text-align: center;
+                border-radius: 8px;
+                padding-top: 10px;
+                padding-right: 50px;
+                padding-bottom: 80px;
+                padding-left: 20px;
+                margin-right: 15%;
+            }
+            p{
+                font-size: 25px;
+                color: #946f63;
+            }
+            p.total{
+                font-size: 25px;
+                color: #ffffff;
+            }
+        </style>
+    </head>
 
-        <h1>My First Heading</h1>
+    <!--Webpage Elements-->
+    <body style="background-color:#dfd8cf;">
+
+        <!--Div for 4 Central Elements-->
+        <div class = "webpage">
+
+           <!--Customer Name div-->
+            <div class="customer_name" >
+                <h2 style="color: #946f63;">Customer Name:</h2>
+                <p>Tilly</p>
+           </div>
+
+           <!--Customer phone div-->
+            <div class = "customer_phone"> 
+                <h2 style="color: #946f63;">Customer Order:</h2>
+                <p> 18 </p>
+            </div>
         
-        <p>My first paragraph.</p>
+            <!--Drink information div-->
+            <div class="drink_information">
+                <h2 style="color: #946f63;">Drink ID + Name:
+                </h2>
+                <p> 12345 </p>
+                 <p> Latte</p>
+                <h2 style="color: #946f63;">Drink Price:</h2>
+                <p> $5 </p>
+            </div>
+
+            <!--Add new entry div-->
+            <div class = "new_entry_button">
+                <h2 style="color: #946f63; font-size: 50px;">+</h2>
+            </div>
+        </div>
         
-        </body>
+        <!--Order total cost div-->
+        <div class = "order_total">
+            <h2 style="color:#ffffff">Order Total Cost:</h2>
+            <p class="total"> $5 </p>
+        </div>
+   
+    </body>
 
 </html>
