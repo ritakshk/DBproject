@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drink Order System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      padding: 100px 20px 20px 20px; /* extra top padding to clear buttons */
+      gap: 40px;
+    }
+
+    .navigation-menus {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+
+    .logout {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .navigation-menus button,
+    .logout button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .navigation-menus button:hover,
+    .logout button:hover {
+      background-color: #2980b9;
+    }
+
+    .form-container, .order-list {
+      width: 50%;
+    }
+
+    h2, h3 {
+      margin-bottom: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, select, button {
+      padding: 8px;
+      font-size: 1rem;
+    }
+
+    .drink-item, .order-item {
+      background: #f9f9f9;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .drink-item button {
+      margin-right: 10px;
+    }
+
+    #totalPriceDisplay {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .finalize-btn {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .finalize-btn:hover {
+      background-color: #45a049;
+    }
+
+    .ready {
+      background-color: #e0ffe0;
+    }
+
+    .pending {
+      background-color: #fffde0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navigation-menus">
+    <button onclick="goToCashierView()">Cashier View</button>
+    <button onclick="goToBaristaView()">Barista View</button>
+  </div>
+
+  <div class="logout">
+    <button onclick="alert('Logging out...')">Logout</button>
+  </div>
+
+  <div class="form-container" id="cashierView">
+    <h2>Create Order</h2>
+    <form id="orderForm">
+      <input type="text" id="name" placeholder="Your Name (only enter once)" required />
+
+      <select id="drink" required>
+        <option value="">-- Select a Drink --</option>
+        <option value="Milk Tea">Milk Tea</option>
+        <option value="Green Tea">Green Tea</option>
+        <option value="Thai Tea">Thai Tea</option>
+        <option value="Fruit Tea">Fruit Tea</option>
+      </select>
+
+      <select id="topping1">
+        <option value="">-- Select Topping 1 --</option>
+        <option value="Boba">Boba</option>
+        <option value="Pudding">Pudding</option>
+        <option value="Lychee Jelly">Lychee Jelly</option>
+        <option value="Aloe Vera">Aloe Vera</option>
+      </select>
+
+      <select id="topping2">
+        <option value="">-- Select Topping 2 --</option>
+        <option value="Boba">Boba</option>
+        <option value="Pudding">Pudding</option>
+        <option value="Lychee Jelly">Lychee Jelly</option>
+        <option value="Aloe Vera">Aloe Vera</option>
+      </select>
+
+      <input type="number" id="quantity" placeholder="Quantity" min="1" value="1" required />
+      <button type="submit">Add Drink to Session</button>
+    </form>
+
+    <h3>Current Session Drinks</h3>
+    <div id="sessionDrinks"></div>
+    <button class="finalize-btn" onclick="finalizeOrder()">Finalize Order</button>
+  </div>
+
+  <div class="order-list" id="ordersView">
+    <h2>Final Orders</h2>
+    <div id="ordersContainer"></div>
+    <div id="totalPriceDisplay">Total: $0.00</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('orderForm');
+    const sessionDrinks = document.getElementById('sessionDrinks');
+    const ordersContainer = document.getElementById('ordersContainer');
+    const totalPriceDisplay = document.getElementById('totalPriceDisplay');
+
+    const cashierView = document.getElementById('cashierView');
+    const ordersView = document.getElementById('ordersView');
+
+    let currentSessionDrinks = [];
+    let finalOrders = [];
+    let editIndex = null;
+    let orderCounter = 1;
+
+    const drinkPrices = {
+      "Milk Tea": 4.00,
+      "Green Tea": 3.50,
+      "Thai Tea": 4.50,
+      "Fruit Tea": 4.00
+    };
+
+    const toppingPrice = 0.50;
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const drink = document.getElementById('drink').value;
+      const topping1 = document.getElementById('topping1').value;
+      const topping2 = document.getElementById('topping2').value;
+      const quantity = parseInt(document.getElementById('quantity').value);
+
+      if (!name || !drink || isNaN(quantity)) return;
+
+      const basePrice = drinkPrices[drink] || 0;
+      const toppingsCost = (topping1 ? toppingPrice : 0) + (topping2 ? toppingPrice : 0);
+      const price = basePrice + toppingsCost;
+
+      const drinkData = { name, drink, topping1, topping2, quantity, price };
+
+      if (editIndex !== null) {
+        currentSessionDrinks[editIndex] = drinkData;
+        editIndex = null;
+      } else {
+        currentSessionDrinks.push(drinkData);
+      }
+
+      renderSessionDrinks();
+      form.reset();
+    });
+
+    function renderSessionDrinks() {
+      sessionDrinks.innerHTML = '';
+      currentSessionDrinks.forEach((drink, index) => {
+        const div = document.createElement('div');
+        div.className = 'drink-item';
+        div.innerHTML = `
+          <strong>${drink.drink}</strong> x${drink.quantity} - $${(drink.quantity * drink.price).toFixed(2)}<br/>
+          Toppings: ${drink.topping1 || 'None'}, ${drink.topping2 || 'None'}
+          <div>
+            <button onclick="editSessionDrink(${index})">Edit</button>
+            <button onclick="removeSessionDrink(${index})">Remove</button>
+          </div>
+        `;
+        sessionDrinks.appendChild(div);
+      });
+    }
+
+    function editSessionDrink(index) {
+      const drink = currentSessionDrinks[index];
+      document.getElementById('name').value = drink.name;
+      document.getElementById('drink').value = drink.drink;
+      document.getElementById('topping1').value = drink.topping1;
+      document.getElementById('topping2').value = drink.topping2;
+      document.getElementById('quantity').value = drink.quantity;
+      editIndex = index;
+    }
+
+    function removeSessionDrink(index) {
+      currentSessionDrinks.splice(index, 1);
+      renderSessionDrinks();
+    }
+
+    function finalizeOrder() {
+      if (currentSessionDrinks.length === 0) return;
+
+      const name = currentSessionDrinks[0].name;
+
+      finalOrders.push({
+        orderNumber: orderCounter++,
+        name,
+        drinks: [...currentSessionDrinks],
+        status: 'Pending'
+      });
+
+      currentSessionDrinks = [];
+      renderSessionDrinks();
+      renderFinalOrders();
+    }
+
+    function renderFinalOrders() {
+      ordersContainer.innerHTML = '';
+      let total = 0;
+
+      finalOrders.forEach(order => {
+        const wrapper = document.createElement('div');
+        wrapper.className = `order-item ${order.status.toLowerCase()}`;
+
+        let drinksHtml = order.drinks.map(drink => {
+          const drinkTotal = drink.quantity * drink.price;
+          total += drinkTotal;
+          return `
+            ${drink.quantity} x ${drink.drink} - $${drinkTotal.toFixed(2)}<br/>
+            Toppings: ${drink.topping1 || 'None'}, ${drink.topping2 || 'None'}<br/>
+          `;
+        }).join('<hr>');
+
+        wrapper.innerHTML = `
+          <strong>Order #${order.orderNumber} - ${order.name}</strong><br/>
+          <em>Status: ${order.status}</em><br/><br/>
+          ${drinksHtml}
+          ${order.status === 'Pending' ? `<button onclick="markAsReady(${order.orderNumber})">Mark as Ready</button>` : ''}
+        `;
+        ordersContainer.appendChild(wrapper);
+      });
+
+      totalPriceDisplay.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    function markAsReady(orderNumber) {
+      const order = finalOrders.find(o => o.orderNumber === orderNumber);
+      if (order) {
+        order.status = 'Ready';
+        renderFinalOrders();
+      }
+    }
+
+    function goToCashierView() {
+      cashierView.style.display = 'block';
+      ordersView.style.width = '50%';
+    }
+
+    function goToBaristaView() {
+      cashierView.style.display = 'none';
+      ordersView.style.width = '100%';
+    }
+  </script>
+
+</body>
+</html>
