@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: georgia, serif; /* Apply Georgia to the whole body as a default */
+            margin: 20px;
+            background-color: #dfd8cf; /* Background color */
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .order-card {
+            background-color: #ece7e0; /* Light beige boxes */
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            color: #946f63; /* Order text color */
+            font-family: georgia, serif; /* Apply Georgia to the order card text */
+        }
+
+        .order-card p {
+            margin-bottom: 10px;
+        }
+
+        .order-card strong {
+            color: #946f63; /* Make the labels bold and the specified color */
+        }
+
+        .order-card .status {
+            background-color: #d1c1aa; /* Status box color */
+            color: #946f63; /* Status text color */
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-align: center; /* Center the text within the status box */
+            width: fit-content; /* Adjust width to content */
+            margin-left: auto; /* Push to the right */
+            margin-right: auto; /* Push to the left, creating center alignment */
+            font-family: georgia, serif; /* Apply Georgia to the status text */
+        }
+
+        h1 {
+            color: #946f63; /* Orders heading color */
+            margin-bottom: 20px;
+            font-family: cursive; /* Keep the cursive font for "orders" */
+        }
+    </style>
+</head>
+<body>
+    <h1>orders</h1>
+    <div class="container">
+        <div class="order-card">
+            <p><strong>Order ID:</strong> 12345</p>
+            <p><strong>Order name:</strong> Latte</p>
+            <p><strong>Drink name:</strong> Espresso</p>
+            <p><strong>Drink name:</strong> Milk</p>
+            <p><strong>Drink name:</strong> Foam</p>
+            <div class="status">Status: Pending</div>
+        </div>
+        <div class="order-card">
+            <p><strong>Order ID:</strong> 67890</p>
+            <p><strong>Order name:</strong> Cappuccino</p>
+            <p><strong>Drink name:</strong> Espresso</p>
+            <p><strong>Drink name:</strong> Milk</p>
+            <p><strong>Drink name:</strong> Foam</p>
+            <div class="status">Status: Ready</div>
+        </div>
+        <div class="order-card">
+            <p><strong>Order ID:</strong> 13579</p>
+            <p><strong>Order name:</strong> Americano</p>
+            <p><strong>Drink name:</strong> Espresso</p>
+            <p><strong>Drink name:</strong> Water</p>
+            <p><strong>Drink name:</strong> </p>
+            <div class="status">Status: Processing</div>
+        </div>
+    </div>
+</body>
+</html>
